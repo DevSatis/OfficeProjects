@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Popup</title>
+    <style>
+        body {
+            display: flex;
+            margin: 110px 240px;
+            background-color: #000000 0% 0% no-repeat padding-box;
+        }
+
+        .popup {
+            display: flex;
+            flex-direction: column;
+            align-content: space-between;
+            width: 960px;
+            height: 400px;
+            padding: 20px;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .popup ul li {
+            margin-bottom: 10px;
+        }
+        .popupBottom{
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .popup .count {
+            margin-top: 10px;
+        }
+
+        .popup .proceed {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="popup">
+        <div class="popupTop">
+            <span>Choose classes to analyze their engagement. <small>(max 8 classes)</small></span>
+            <hr>
+            <ul>
+                <li><input type="checkbox" name="name1" value="Name 1"> Name 1</li>
+                <li><input type="checkbox" name="name2" value="Name 2"> Name 2</li>
+                <li><input type="checkbox" name="name3" value="Name 3"> Name 3</li>
+            </ul>
+        </div>
+        <hr>
+        <div class="popupBottom">
+            <span class="count"></span>
+            <button class="proceed">Proceed</button>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var selectedNames = [];
+
+            $('input[type="checkbox"]').click(function () {
+                selectedNames = $('input[type="checkbox"]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+
+                $('.count').text(selectedNames.length + ' items selected');
+            });
+
+            $('.proceed').click(function () {
+                window.opener.handleSelectedNames(selectedNames);
+                window.close();
+            });
+        });
+    </script>
+</body>
+
+</html>
